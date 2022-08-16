@@ -32,29 +32,76 @@ functions:
   create:
     handler: handler.create
     events:
-      - http: POST todos
-
+      - http:
+          method: POST
+          path: todos
+          cors: true
+          authorizer:
+            name: MyAuthorizer
+            type: COGNITO_USER_POOLS
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
   readAll:
     handler: handler.readAll
     events:
       - http:
           method: GET
           path: todos
+          cors: true
+          authorizer:
+            name: MyAuthorizer
+            type: COGNITO_USER_POOLS
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
 
   readOne:
     handler: handler.readOne
     events:
-      - http: GET todos/{id}
+      - http:
+          method: GET
+          path: todos/{id}
+          cors: true
+          authorizer:
+            name: MyAuthorizer
+            type: COGNITO_USER_POOLS
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
 
   update:
     handler: handler.update
     events:
-      - http: PUT todos/{id}
+      - http:
+          method: PUT
+          path: todos/{id}
+          cors: true
+          authorizer:
+            name: MyAuthorizer
+            type: COGNITO_USER_POOLS
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
 
   delete:
     handler: handler.delete
     events:
-      - http: DELETE todos/{id}
+      - http:
+          method: DELETE
+          path: todos/{id}
+          cors: true
+          authorizer:
+            name: MyAuthorizer
+            type: COGNITO_USER_POOLS
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
 
   loginUser:
     handler: user/login.handler
